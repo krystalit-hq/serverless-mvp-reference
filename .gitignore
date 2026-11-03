@@ -1,7 +1,6 @@
 .terraform/
 *.tfstate
 *.tfstate.*
-.terraform.lock.hcl
 terraform.tfvars
 *.zip
 build/
@@ -10,3 +9,7 @@ __pycache__/
 .venv/
 .env
 .DS_Store
+
+# Intentionally NOT ignored:
+# infra/.terraform.lock.hcl
+# Commit the provider lock file for reproducible Terraform runs.
