@@ -1,0 +1,11 @@
+In src/worker/handler.py update claim_job() condition to accept QUEUED records:
+
+ConditionExpression=(
+    "attribute_not_exists(#status) "
+    "OR #status = :queued "
+    "OR (#status = :processing AND processing_expires_at < :now)"
+),
+
+and add this value:
+
+":queued": "QUEUED",

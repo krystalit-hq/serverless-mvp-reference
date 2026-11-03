@@ -59,12 +59,14 @@ def claim_job(job_id: str, correlation_id: str) -> str:
             ),
             ConditionExpression=(
                 "attribute_not_exists(#status) "
+                "OR #status = :queued "
                 "OR (#status = :processing AND processing_expires_at < :now)"
             ),
             ExpressionAttributeNames={
                 "#status": "status",
             },
             ExpressionAttributeValues={
+                ":queued": "QUEUED",
                 ":processing": "PROCESSING",
                 ":correlation_id": correlation_id,
                 ":now": now,
