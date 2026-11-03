@@ -35,7 +35,7 @@ variable "sqs_visibility_timeout_seconds" {
 variable "sqs_max_receive_count" {
   description = "Number of receives before SQS moves a message to the DLQ."
   type        = number
-  default     = 3
+  default     = 5
 
   validation {
     condition     = var.sqs_max_receive_count >= 1

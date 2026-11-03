@@ -1,6 +1,10 @@
 TF_DIR := infra
+PYTHON ?= python
 
-.PHONY: init fmt validate plan
+.PHONY: package-worker init fmt validate plan
+
+package-worker:
+	$(PYTHON) scripts/package_lambda.py src/worker build/worker.zip
 
 init:
 	terraform -chdir=$(TF_DIR) init
@@ -8,8 +12,8 @@ init:
 fmt:
 	terraform -chdir=$(TF_DIR) fmt -recursive
 
-validate:
+validate: package-worker
 	terraform -chdir=$(TF_DIR) validate
 
-plan:
+plan: package-worker
 	terraform -chdir=$(TF_DIR) plan
